@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="/repos/dagre-d3/build/dagre-d3.min.js"></script>
+
+<style>
+svg {
+    border: 1px solid #999;
+    overflow: hidden;
+}
+
+.node rect {
+    stroke: #999;
+    stroke-width: 1px;
+    fill: #fff;
+}
+
+.edgeLabel rect {
+    fill: #fff;
+}
+
+.edgePath {
+    stroke: #333;
+    stroke-width: 1px;
+    fill: #000;
+}
+</style>
+
+  </head>
+
+  <body>
+    <svg width=650 height=680>
+      <g transform="translate(20,20)"/>
+    </svg>
+
+    <script>
+      var g = new dagreD3.Digraph();
+      
+      g.addNode("foo", { label: "Foo",  width: 100, height: 100 });
+      g.addNode("bar", { label: "Bar",  width: 100, height: 100 });
+
+      g.addEdge(null, "foo", "bar");
+
+      var layout = dagreD3.layout().run(g);
+
+      layout.eachNode(function(u, value) {
+      console.log("Node " + u + ": " + JSON.stringify(value));
+      });
+      layout.eachEdge(function(e, u, v, value) {
+      console.log("Edge " + u + " -> " + v + ": " + JSON.stringify(value));
+      });
+
+      var renderer = new dagreD3.Renderer();
+      renderer.run(g, d3.select("svg g"));
+
+    </script>
+  </body>
+
+</html>

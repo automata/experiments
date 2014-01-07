@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="/repos/dagre/build/dagre.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+      var g = new dagre.Digraph();
+      
+      g.addNode("foo", { label: "Foo",  width: 100, height: 100 });
+      g.addNode("bar", { label: "Bar",  width: 100, height: 100 });
+
+      g.addEdge(null, "foo", "bar");
+
+      var layout = dagre.layout().run(g);
+
+      layout.eachNode(function(u, value) {
+      console.log("Node " + u + ": " + JSON.stringify(value));
+      });
+      layout.eachEdge(function(e, u, v, value) {
+      console.log("Edge " + u + " -> " + v + ": " + JSON.stringify(value));
+      });
+    </script>
+  </body>
+
+</html>
